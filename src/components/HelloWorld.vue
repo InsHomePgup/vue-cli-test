@@ -5,7 +5,7 @@
 </template>
 
 <script>
-// import store from '../store';
+import store from '../store';
 export default {
   name: "HelloWorld",
   store,
@@ -28,8 +28,8 @@ export default {
   },
   methods:{
     addOne(){
-      this.$store.commit("increment");
-      console.log(this.$store.state.count); // -> 1
+      store.commit("increment");
+      console.log(store.state.count); // -> 1
       this.num++;
     }
   }
