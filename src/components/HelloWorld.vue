@@ -1,16 +1,39 @@
 <template>
   <div class="hello">
-    <div>123123</div>
+    <div @click="addOne">{{number}}</div>
   </div>
 </template>
 
 <script>
+// import store from '../store';
 export default {
-  name: 'HelloWorld',
+  name: "HelloWorld",
+  store,
   props: {
-    msg: String
+    msg: String,
+  },
+  data(){
+    return {
+      num:0
+    }
+  },
+  computed:{
+    number(){
+      return this.num*2;
+    }
+  },
+  mounted() {
+    // console.log("hello  create");
+    // console.log(store)
+  },
+  methods:{
+    addOne(){
+      this.$store.commit("increment");
+      console.log(this.$store.state.count); // -> 1
+      this.num++;
+    }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
