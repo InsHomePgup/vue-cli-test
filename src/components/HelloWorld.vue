@@ -1,14 +1,31 @@
 <template>
   <div class="hello">
-    <div>123123</div>
+    <div>{{count}}</div>
+    <button @click = "storeClick">click me </button>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
+  computed:mapState(['count']),
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  mounted(){
+    console.log("挂载的store",this.$store.state.count)
+    // this.count = this.$store.state.count
+  },
+  data(){
+    return {
+
+    }
+  },
+  methods:{
+    storeClick(){
+      this.$store.commit('increment')
+    }
   }
 }
 </script>
