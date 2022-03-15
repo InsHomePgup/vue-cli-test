@@ -1,55 +1,83 @@
+<!--
+ * @Author: InsHomePgup
+ * @Date: 2022-03-02 14:22:15
+ * @LastEditors: InsHomePgup
+ * @LastEditTime: 2022-03-15 08:32:39
+ * @FilePath: \vue-cli-test\src\components\HelloWorld.vue
+ * @Description: 
+ * 
+ * 
+-->
+<!--
+ * @Author: InsHomePgup
+ * @Date: 2022-03-02 14:22:15
+ * @LastEditors: InsHomePgup
+ * @LastEditTime: 2022-03-15 08:32:10
+ * @FilePath: \vue-cli-test\src\components\HelloWorld.vue
+ * @Description: 
+ * 
+ * 
+-->
 <template>
-  <div class="hello">
-    <div @click="addOne">{{number}}</div>
-  </div>
+    <div class="hello">
+        <div>{{ count }}</div>
+        <button @click="storeClick">click me</button>
+        <div>
+            {{ getObjById(id) }}
+        </div>
+    </div>
 </template>
 
 <script>
-import store from '../store';
+import { mapState, mapGetters } from 'vuex';
 export default {
-  name: "HelloWorld",
-  store,
-  props: {
-    msg: String,
-  },
-  data(){
-    return {
-      num:0
+    computed: {
+        ...mapState({
+            count: 'count'
+        }),
+        ...mapGetters(['getObjById'])
+    },
+    name: 'HelloWorld',
+    props: {
+        msg: String
+    },
+    mounted() {
+        this.$store.commit('addObj', {
+            id: 'mapbox',
+            list: [1, 2, 3]
+        });
+        // console.log("挂载的store", this.$store.state.count);
+        // const list = this.$store.getters.getObjById("mapbox");
+        // console.log("获取到的列表", list);
+        // this.count = this.$store.state.count
+    },
+    data() {
+        return {
+            id: 'mapbox'
+        };
+    },
+    methods: {
+        storeClick() {
+            this.$store.commit('increment');
+        }
     }
-  },
-  computed:{
-    number(){
-      return this.num*2;
-    }
-  },
-  mounted() {
-    // console.log("hello  create");
-    // console.log(store)
-  },
-  methods:{
-    addOne(){
-      store.commit("increment");
-      console.log(store.state.count); // -> 1
-      this.num++;
-    }
-  }
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 h3 {
-  margin: 40px 0 0;
+    margin: 40px 0 0;
 }
 ul {
-  list-style-type: none;
-  padding: 0;
+    list-style-type: none;
+    padding: 0;
 }
 li {
-  display: inline-block;
-  margin: 0 10px;
+    display: inline-block;
+    margin: 0 10px;
 }
 a {
-  color: #42b983;
+    color: #42b983;
 }
 </style>
