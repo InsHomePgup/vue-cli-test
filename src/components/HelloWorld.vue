@@ -2,16 +2,20 @@
     <div class="hello">
         <div>{{ count }}</div>
         <button @click="storeClick">click me</button>
+        <div>
+            {{ getObjById(id) }}
+        </div>
     </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 export default {
     computed: {
         ...mapState({
             count: "count",
         }),
+        ...mapGetters(["getObjById"]),
     },
     name: "HelloWorld",
     props: {
@@ -23,12 +27,14 @@ export default {
             list: [1, 2, 3],
         });
         // console.log("挂载的store", this.$store.state.count);
-        const list = this.$store.getters.getObjById("mapbox");
-        console.log("获取到的列表", list);
+        // const list = this.$store.getters.getObjById("mapbox");
+        // console.log("获取到的列表", list);
         // this.count = this.$store.state.count
     },
     data() {
-        return {};
+        return {
+            id: "mapbox",
+        };
     },
     methods: {
         storeClick() {
